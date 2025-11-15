@@ -1,16 +1,27 @@
 {
   "name": "electron",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Persistent AI calendar assistant",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "node -e \"const fs=require('fs');fs.rmSync('dist',{recursive:true,force:true});\"",
+    "build": "tsc --project tsconfig.json",
+    "dev": "tsc --project tsconfig.json --watch",
+    "start": "npm run build && electron ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["electron", "react", "cloudflare", "llama", "durable", "objects"],
+  "author": "Owen Bress",
+  "license": "MIT",
   "type": "commonjs",
+  "dependencies": {
+    "@picovoice/porcupine-node": "^3.0.3",
+    "dotenv": "^16.4.7",
+    "mic": "^2.1.2",
+    "undici": "^6.19.8"
+  },
   "devDependencies": {
-    "electron": "^39.2.0"
+    "@types/node": "^20.14.15",
+    "electron": "^39.2.0",
+    "typescript": "^5.6.3"
   }
 }
