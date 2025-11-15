@@ -1,0 +1,72 @@
+You are working inside the “ui/” folder of the Aurora Assistant project. 
+Implement a full TypeScript + React + Vite UI that is designed specifically 
+to run as the renderer for the Electron popup window defined in electron/.
+
+The UI will NOT run standalone — it must be built entirely in the context of:
+
+1. electron/
+   - electron/main.ts creates a transparent, frameless popup BrowserWindow
+   - preload.ts exposes secure IPC functions:
+       window.electronAPI.onWakeWord(callback)
+       window.electronAPI.onAIResponse(callback)
+   - wake-word detection happens in electron/, and the UI only responds to IPC
+
+2. worker/
+   - The Worker receives recorded audio and returns a JSON response:
+       { response: string }
+   - The UI simply displays the text returned by Electron via IPC
+
+Your task: build a complete popup UI that displays:
+- A circular glowing “AI orb” that pulses when listening
+- A clean, modern text area that displays assistant responses
+- Smooth fade-in and fade-out animations triggered via IPC
+- Optional state transitions:
+    • “Listening…”
+    • “Processing…”
+    • Showing the LLM reply
+
+UI Requirements:
+
+1. Technology:
+   • TypeScript
+   • React (functional components + hooks)
+   • Vite dev server
+   • CSS modules or a single popup.css file for animations
+   • No external CSS frameworks unless absolutely necessary
+
+2. IPC Integration:
+   Implement listeners:
+
+
+Do NOT call Node APIs directly — only through the preload bridge.
+
+3. Popup Behavior:
+- Default hidden
+- When onWakeWord triggers:
+     • popup fades in
+     • AI orb pulses
+     • text says: "Listening…"
+- When onAIResponse triggers:
+     • text changes to the assistant response
+     • orb slows pulse or glows softly
+- After a short delay (e.g., 3 seconds), fade out and hide.
+
+4. Visual Design (important):
+• Semi-transparent glassmorphic style popup
+• The popup should float near bottom-right of the Electron window.
+• The AI orb should be:
+• Text should be clean, large, easy to read.
+• Fade and scale transitions must be smooth (CSS transitions).
+
+5. Export:
+Implement everything required for Electron to load the UI.
+
+Deliverables:
+- Full React component code
+- CSS animations and layout
+- IPC event handlers
+- Types for UI state
+- Clean, production-ready structure
+- Make sure UI runs as soon as Vite is started and Electron opens the window
+
+Generate all necessary code files and ensure imports are valid.
